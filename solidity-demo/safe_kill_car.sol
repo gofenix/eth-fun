@@ -3,10 +3,12 @@ pragma solidity ^0.4.20;
 contract Car {
   uint speed;
   string name;
+  address owner
 
   function Car() public {
     speed = 100;
     name="奔驰";
+    owner=msg.sender;
   }
 
   function getSpeed() constant public returns (uint) {
@@ -22,6 +24,8 @@ contract Car {
   }
 
   function kill() {
-    selfdestruct(msg.sender);
+    if(msg.sender == owner){
+      selfdestruct(msg.sender);
+    }
   }
 }
